@@ -3,18 +3,140 @@
 <head>
 <meta charset="UTF-8">
 <title>Files</title>
+
+<style>
+:root {
+    --bg: #0f2027;
+    --card-bg: rgba(255, 255, 255, 0.08);
+    --border: rgba(255, 255, 255, 0.15);
+    --text: #ffffff;
+    --accent: #00c6ff;
+    --danger: #ff4d4d;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Tahoma, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: var(--text);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 90%;
+    max-width: 800px;
+    background: var(--card-bg);
+    backdrop-filter: blur(15px);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 30px;
+    animation: fadeIn 0.8s ease;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.files {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+}
+
+.file-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.file-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+.file-card a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+    word-break: break-all;
+}
+
+.file-card a:hover {
+    text-decoration: underline;
+}
+
+.delete-btn {
+    background: none;
+    border: 1px solid var(--danger);
+    color: var(--danger);
+    padding: 6px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.delete-btn:hover {
+    background: var(--danger);
+    color: white;
+}
+
+.empty {
+    text-align: center;
+    opacity: 0.7;
+    font-size: 14px;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+</style>
 </head>
+
 <body>
-<h2>Uploaded Files</h2>
-<ul>
-{% for file in files %}
-<li>
-<a href="/{{ file }}">{{ file }}</a>
-<form method="post" action="/delete/{{ file }}" style="display:inline;">
-<button type="submit">Delete</button>
-</form>
-</li>
-{% endfor %}
-</ul>
+
+<div class="container">
+    <h2>📂 Uploaded Files</h2>
+
+    {% if files %}
+    <div class="files">
+        {% for file in files %}
+        <div class="file-card">
+            <a href="/{{ file }}">{{ file }}</a>
+
+            <form method="post" action="/delete/{{ file }}">
+                <button type="submit" class="delete-btn">Delete</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+        <p class="empty">No files uploaded yet</p>
+    {% endif %}
+</div>
+
 </body>
 </html>
