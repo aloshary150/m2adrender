@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Files</title>
+</head>
+<body>
+<h2>Uploaded Files</h2>
+<ul>
+{% for file in files %}
+<li>
+<a href="/{{ file }}">{{ file }}</a>
+<form method="post" action="/delete/{{ file }}" style="display:inline;">
+<button type="submit">Delete</button>
+</form>
+</li>
+{% endfor %}
+</ul>
+</body>
+</html>
