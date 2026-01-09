@@ -24,6 +24,14 @@ def index():
 @app.route("/<filename>")
 def download(filename):
     return send_from_directory(UPLOAD_FOLDER, filename, as_attachment=True)
+@app.route("/main")
+def main():
+    return render_template("main.html")
+
+
+@app.route("/about")
+def about():
+    return render_template("about.html")
 
 @app.route("/delete/<filename>", methods=["POST"])
 def delete(filename):
