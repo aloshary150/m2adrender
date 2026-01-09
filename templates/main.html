@@ -1,0 +1,236 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>EduCenter | Home</title>
+
+<style>
+:root {
+    --primary: #2563eb;
+    --secondary: #0f172a;
+    --light: #f8fafc;
+    --accent: #38bdf8;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Tahoma, sans-serif;
+}
+
+body {
+    background: var(--light);
+    color: var(--secondary);
+}
+
+/* Navbar */
+nav {
+    background: #ffffff;
+    padding: 18px 8%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+nav h1 {
+    color: var(--primary);
+    font-size: 22px;
+    font-weight: 700;
+}
+
+nav a {
+    text-decoration: none;
+    margin-left: 24px;
+    color: var(--secondary);
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: var(--primary);
+}
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(120deg, #2563eb, #38bdf8);
+    color: white;
+    padding: 120px 8%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 50px;
+}
+
+.hero-text {
+    max-width: 600px;
+    animation: slideIn 1s ease;
+}
+
+.hero h2 {
+    font-size: 44px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 18px;
+    line-height: 1.8;
+    opacity: 0.95;
+}
+
+.hero button {
+    margin-top: 30px;
+    padding: 14px 32px;
+    background: #ffffff;
+    border: none;
+    color: var(--primary);
+    font-size: 16px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: transform 0.3s ease;
+}
+
+.hero button:hover {
+    transform: scale(1.05);
+}
+
+.hero img {
+    max-width: 420px;
+    animation: float 3s ease-in-out infinite;
+}
+
+/* Sections */
+section {
+    padding: 80px 8%;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-title h3 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+.section-title p {
+    color: #64748b;
+}
+
+/* Cards */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 25px;
+}
+
+.card {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+}
+
+.card h4 {
+    margin-bottom: 10px;
+    color: var(--primary);
+}
+
+/* Footer */
+footer {
+    background: var(--secondary);
+    color: white;
+    padding: 30px 8%;
+    text-align: center;
+}
+
+/* Animations */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+@media (max-width: 900px) {
+    .hero {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+    <h1>EduCenter</h1>
+    <div>
+        <a href="/main">Home</a>
+        <a href="/about">About Us</a>
+        <a href="/">Files</a>
+    </div>
+</nav>
+
+<div class="hero">
+    <div class="hero-text">
+        <h2>Building Knowledge for a Brighter Future</h2>
+        <p>
+            We are a modern educational institution dedicated to empowering students
+            through innovative learning programs and experienced educators.
+        </p>
+        <button>Get Started</button>
+    </div>
+
+    <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png" alt="Education">
+</div>
+
+<section>
+    <div class="section-title">
+        <h3>Why Choose Us?</h3>
+        <p>Our core values that make us different</p>
+    </div>
+
+    <div class="cards">
+        <div class="card">
+            <h4>Expert Teachers</h4>
+            <p>Highly qualified educators using modern teaching methodologies.</p>
+        </div>
+        <div class="card">
+            <h4>Modern Curriculum</h4>
+            <p>Up-to-date content aligned with current academic standards.</p>
+        </div>
+        <div class="card">
+            <h4>Supportive Environment</h4>
+            <p>A motivating and safe learning environment for all students.</p>
+        </div>
+    </div>
+</section>
+
+<footer>
+    © 2026 EduCenter. All rights reserved.
+</footer>
+
+</body>
+</html>
