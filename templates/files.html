@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Files</title>
+<title>Uploaded Files</title>
 
 <style>
 :root {
@@ -125,10 +125,14 @@ h2 {
     <div class="files">
         {% for file in files %}
         <div class="file-card">
-            <a href="/{{ file }}">{{ file }}</a>
+            <a href="{{ file.url }}" target="_blank">
+                {{ file.name }}
+            </a>
 
-            <form method="post" action="/delete/{{ file }}">
-                <button type="submit" class="delete-btn">Delete</button>
+            <form method="post" action="/delete/{{ file.public_id }}">
+                <button type="submit" class="delete-btn">
+                    Delete
+                </button>
             </form>
         </div>
         {% endfor %}
