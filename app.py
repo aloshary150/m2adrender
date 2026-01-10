@@ -11,9 +11,9 @@ FILES_DB = "files.json"
 
 # Cloudinary config (ENV VARS)
 cloudinary.config(
-    cloud_name=os.environ.get("CLOUD_NAME"),
-    api_key=os.environ.get("CLOUD_API_KEY"),
-    api_secret=os.environ.get("CLOUD_API_SECRET"),
+    cloud_name=os.environ.get("dozrkzrr0"),
+    api_key=os.environ.get("427765477913586"),
+    api_secret=os.environ.get("3043CuLsgBbJLNBt7phTOmU6LCU"),
     secure=True
 )
 
