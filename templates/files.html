@@ -1,19 +1,30 @@
-<header>
-  <h1>M2AD simple Server</h1>
-  <nav>
-    <ul class="menu">
-      <li><a href="#">Menu ▼</a>
-        <ul class="submenu">
-          <li><a href="/">Home</a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="/main">Main</a></li>
-        </ul>
-      </li>
-    </ul>
-  </nav>
-</header>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Uploaded Files - M2AD Simple Server</title>
 <style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #121212;
+    color: #eee;
+    margin: 0; padding: 20px;
+  }
+  header {
+    background-color: rgba(0,0,0,0.3);
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  header h1 {
+    margin: 0;
+    color: #fff;
+  }
+  nav {
+    position: relative;
+  }
   .menu {
     list-style: none;
     margin: 0;
@@ -29,15 +40,18 @@
     padding: 12px 18px;
     display: block;
     cursor: pointer;
+    user-select: none;
   }
   .submenu {
     display: none;
     position: absolute;
-    top: 100%;
+    top: 42px;
     left: 0;
-    background: rgba(0,0,0,0.8);
+    background: rgba(255,255,255,0.1);
     border-radius: 5px;
     min-width: 150px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    z-index: 100;
   }
   .submenu li {
     padding: 10px 15px;
@@ -47,10 +61,117 @@
     text-decoration: none;
     display: block;
   }
+  .submenu li a:hover {
+    background-color: rgba(255,255,255,0.2);
+  }
   .menu > li:hover .submenu {
     display: block;
+    animation: fadeInDown 0.3s ease forwards;
   }
-  .submenu li a:hover {
-    background: #444;
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .files-list {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .file-item {
+    background: #222;
+    margin-bottom: 10px;
+    padding: 12px 15px;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .file-item a {
+    color: #00bfff;
+    text-decoration: none;
+    word-break: break-all;
+  }
+  .file-item form {
+    margin: 0;
+  }
+  .file-item button {
+    background: #ff5555;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .file-item button:hover {
+    background: #ff2222;
+  }
+  .no-files {
+    text-align: center;
+    color: #888;
+    margin-top: 40px;
+  }
+  .back-link {
+    display: block;
+    max-width: 600px;
+    margin: 20px auto;
+    text-align: center;
+  }
+  .back-link a {
+    color: #00bfff;
+    text-decoration: none;
+  }
+  .back-link a:hover {
+    text-decoration: underline;
   }
 </style>
+</head>
+<body>
+
+<header>
+  <h1>M2AD Simple Server</h1>
+  <nav>
+    <ul class="menu">
+      <li><a href="#">Menu ▼</a>
+        <ul class="submenu">
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/main">Main</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<h2>Uploaded Files</h2>
+
+<div class="files-list">
+  {% if files %}
+    {% for file in files %}
+      <div class="file-item">
+        <a href="/{{ file }}" download>{{ file }}</a>
+        <form action="/delete/{{ file }}" method="post" onsubmit="return confirm('Are you sure you want to delete {{ file }}?');">
+          <button type="submit">Delete</button>
+        </form>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p class="no-files">No files uploaded yet.</p>
+  {% endif %}
+</div>
+
+<div class="back-link">
+  <a href="/">Back to Upload</a>
+</div>
+
+</body>
+</html>
