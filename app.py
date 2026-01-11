@@ -10,8 +10,7 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 # بيانات بوت التليغرام
 BOT_TOKEN = "8366818255:AAFcG_h7OzidDuUHWkLdpGFbbtXuvWFYJl0"  # غيره بتوكنك
-CHAT_ID = "رقم_الشات_الخاص_بك_أو_المجموعة"  # مثال: "-123456789" للمجموعة، أو رقم حسابك
-
+CHAT_ID = "8492067756"
 PASSWORD = "aloshary150"
 
 def send_file_to_telegram(filepath, filename):
