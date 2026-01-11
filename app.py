@@ -39,7 +39,7 @@ def index():
             if file.filename:
                 upload = cloudinary.uploader.upload(
                     file,
-                    folder="m2ad_uploads",
+                    folder="aloshary",
                     resource_type="auto"
                 )
 
