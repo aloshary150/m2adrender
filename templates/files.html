@@ -1,145 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Uploaded Files</title>
-
 <style>
-:root {
-    --bg: #0f2027;
-    --card-bg: rgba(255, 255, 255, 0.08);
-    --border: rgba(255, 255, 255, 0.15);
-    --text: #ffffff;
-    --accent: #00c6ff;
-    --danger: #ff4d4d;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Segoe UI", Tahoma, sans-serif;
-}
-
-body {
-    min-height: 100vh;
-    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-    color: var(--text);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.container {
-    width: 90%;
-    max-width: 800px;
-    background: var(--card-bg);
-    backdrop-filter: blur(15px);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 30px;
-    animation: fadeIn 0.8s ease;
-}
-
-h2 {
+  body {
+    font-family: Arial, sans-serif;
+    background: #121212;
+    color: #eee;
+    margin: 0; padding: 20px;
+  }
+  h2 {
     text-align: center;
-    margin-bottom: 25px;
-    font-weight: 600;
-    letter-spacing: 1px;
-}
-
-.files {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 15px;
-}
-
-.file-card {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--border);
-    border-radius: 15px;
-    padding: 15px;
+    margin-bottom: 20px;
+  }
+  .files-list {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .file-item {
+    background: #222;
+    margin-bottom: 10px;
+    padding: 12px 15px;
+    border-radius: 6px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.file-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-}
-
-.file-card a {
-    color: var(--accent);
+  }
+  .file-item a {
+    color: #00bfff;
     text-decoration: none;
-    font-weight: 500;
     word-break: break-all;
-}
-
-.file-card a:hover {
-    text-decoration: underline;
-}
-
-.delete-btn {
-    background: none;
-    border: 1px solid var(--danger);
-    color: var(--danger);
-    padding: 6px 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.delete-btn:hover {
-    background: var(--danger);
+  }
+  .file-item form {
+    margin: 0;
+  }
+  .file-item button {
+    background: #ff5555;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 4px;
     color: white;
-}
-
-.empty {
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .file-item button:hover {
+    background: #ff2222;
+  }
+  .no-files {
     text-align: center;
-    opacity: 0.7;
-    font-size: 14px;
-}
-
-/* Animation */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
+    color: #888;
+    margin-top: 40px;
+  }
+  .back-link {
+    display: block;
+    max-width: 600px;
+    margin: 20px auto;
+    text-align: center;
+  }
+  .back-link a {
+    color: #00bfff;
+    text-decoration: none;
+  }
+  .back-link a:hover {
+    text-decoration: underline;
+  }
 </style>
 </head>
-
 <body>
 
-<div class="container">
-    <h2>📂 Uploaded Files</h2>
+<h2>Uploaded Files</h2>
 
-    {% if files %}
-    <div class="files">
-        {% for file in files %}
-        <div class="file-card">
-            <a href="{{ file.url }}" target="_blank">
-                {{ file.name }}
-            </a>
+<div class="files-list">
+  {% if files %}
+    {% for file in files %}
+      <div class="file-item">
+        <a href="/{{ file }}" download>{{ file }}</a>
+        <form action="/delete/{{ file }}" method="post" onsubmit="return confirm('Are you sure you want to delete {{ file }}?');">
+          <button type="submit">Delete</button>
+        </form>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p class="no-files">No files uploaded yet.</p>
+  {% endif %}
+</div>
 
-            <form method="post" action="/delete/{{ file.public_id }}">
-                <button type="submit" class="delete-btn">
-                    Delete
-                </button>
-            </form>
-        </div>
-        {% endfor %}
-    </div>
-    {% else %}
-        <p class="empty">No files uploaded yet</p>
-    {% endif %}
+<div class="back-link">
+  <a href="/">Back to Upload</a>
 </div>
 
 </body>
