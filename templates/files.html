@@ -1,95 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Uploaded Files</title>
+<header>
+  <h1>M2AD simple Server</h1>
+  <nav>
+    <ul class="menu">
+      <li><a href="#">Menu ▼</a>
+        <ul class="submenu">
+          <li><a href="/">Home</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/main">Main</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</header>
+
 <style>
-  body {
-    font-family: Arial, sans-serif;
-    background: #121212;
-    color: #eee;
-    margin: 0; padding: 20px;
-  }
-  h2 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  .files-list {
-    max-width: 600px;
-    margin: 0 auto;
-  }
-  .file-item {
-    background: #222;
-    margin-bottom: 10px;
-    padding: 12px 15px;
-    border-radius: 6px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .file-item a {
-    color: #00bfff;
-    text-decoration: none;
-    word-break: break-all;
-  }
-  .file-item form {
+  .menu {
+    list-style: none;
     margin: 0;
+    padding: 0;
+    display: flex;
   }
-  .file-item button {
-    background: #ff5555;
-    border: none;
-    padding: 6px 10px;
-    border-radius: 4px;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  .menu > li {
+    position: relative;
   }
-  .file-item button:hover {
-    background: #ff2222;
-  }
-  .no-files {
-    text-align: center;
-    color: #888;
-    margin-top: 40px;
-  }
-  .back-link {
-    display: block;
-    max-width: 600px;
-    margin: 20px auto;
-    text-align: center;
-  }
-  .back-link a {
-    color: #00bfff;
+  .menu > li > a {
+    color: #fff;
     text-decoration: none;
+    padding: 12px 18px;
+    display: block;
+    cursor: pointer;
   }
-  .back-link a:hover {
-    text-decoration: underline;
+  .submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: rgba(0,0,0,0.8);
+    border-radius: 5px;
+    min-width: 150px;
+  }
+  .submenu li {
+    padding: 10px 15px;
+  }
+  .submenu li a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+  }
+  .menu > li:hover .submenu {
+    display: block;
+  }
+  .submenu li a:hover {
+    background: #444;
   }
 </style>
-</head>
-<body>
-
-<h2>Uploaded Files</h2>
-
-<div class="files-list">
-  {% if files %}
-    {% for file in files %}
-      <div class="file-item">
-        <a href="/{{ file }}" download>{{ file }}</a>
-        <form action="/delete/{{ file }}" method="post" onsubmit="return confirm('Are you sure you want to delete {{ file }}?');">
-          <button type="submit">Delete</button>
-        </form>
-      </div>
-    {% endfor %}
-  {% else %}
-    <p class="no-files">No files uploaded yet.</p>
-  {% endif %}
-</div>
-
-<div class="back-link">
-  <a href="/">Back to Upload</a>
-</div>
-
-</body>
-</html>
