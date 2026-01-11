@@ -3,159 +3,72 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>File Upload</title>
+<title>Upload File - M2AD Server</title>
 <style>
-  /* Reset some default styles */
-  * {
-    box-sizing: border-box;
-  }
   body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: Arial, sans-serif;
     background: linear-gradient(135deg, #667eea, #764ba2);
     color: #fff;
-    margin: 0;
-    padding: 0;
-  }
-  header {
-    background-color: rgba(0,0,0,0.3);
-    padding: 15px 30px;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
+    padding: 50px;
+    min-height: 100vh;
   }
-  nav {
-    position: relative;
+  h1 {
+    margin-bottom: 40px;
   }
-  .menu {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-  }
-  .menu > li {
-    position: relative;
-  }
-  .menu > li > a {
-    color: #fff;
-    text-decoration: none;
-    padding: 12px 18px;
-    display: block;
-    transition: background-color 0.3s ease;
-    cursor: pointer;
-  }
-  .menu > li > a:hover {
-    background-color: rgba(255,255,255,0.2);
-  }
-  /* Dropdown */
-  .submenu {
-    display: none;
-    position: absolute;
-    top: 42px;
-    left: 0;
+  form {
     background: rgba(255,255,255,0.1);
-    border-radius: 5px;
-    min-width: 150px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    z-index: 100;
-  }
-  .submenu li {
-    padding: 10px 15px;
-  }
-  .submenu li a {
-    color: #fff;
-    text-decoration: none;
-    display: block;
-  }
-  .submenu li a:hover {
-    background-color: rgba(255,255,255,0.2);
-  }
-  .menu > li:hover .submenu {
-    display: block;
-    animation: fadeInDown 0.3s ease forwards;
-  }
-  @keyframes fadeInDown {
-    from {
-      opacity: 0;
-      transform: translateY(-10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  main {
-    max-width: 450px;
-    background: rgba(255,255,255,0.1);
-    margin: 50px auto;
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-  }
-  h2, h3 {
-    text-align: center;
-  }
-  form {
-    margin: 20px 0;
+    width: 350px;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
+  }
+  input[type="file"],
+  input[type="password"],
+  button {
+    padding: 12px;
+    border-radius: 6px;
+    border: none;
   }
   input[type="file"] {
-    padding: 8px;
-    border-radius: 6px;
-    border: none;
     cursor: pointer;
-  }
-  input[type="password"] {
-    padding: 10px;
-    border-radius: 6px;
-    border: none;
   }
   button {
     background-color: #6c63ff;
-    border: none;
     color: white;
-    padding: 12px;
-    font-weight: 600;
-    border-radius: 8px;
+    font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
   button:hover {
     background-color: #5750d2;
   }
+  label {
+    font-weight: 600;
+  }
 </style>
 </head>
 <body>
 
-<header>
-  <h1>M2AD simple Server</h1>
-  <nav>
-    <ul class="menu">
-      <li><a href="#">Menu ▼</a>
-        <ul class="submenu">
-          <li><a href="/index">Home</a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="/main">Main</a></li>
-        </ul>
-      </li>
-    </ul>
-  </nav>
-</header>
+<h1>M2AD Simple File Upload</h1>
 
-<main>
-  <h2>Upload File</h2>
-  <form method="post" enctype="multipart/form-data">
-    <input type="file" name="file" required />
-    <button type="submit">Upload</button>
-  </form>
+<form method="POST" enctype="multipart/form-data">
+  <label for="file">Choose file to upload:</label>
+  <input type="file" name="file" id="file" required />
 
-  <h3>Admin</h3>
-  <form method="post">
-    <input type="password" name="password" placeholder="Password" />
-    <button type="submit">View Files</button>
-  </form>
-</main>
+  <button type="submit">Upload</button>
+</form>
+
+<form method="POST" style="margin-top: 30px;">
+  <label for="password">Admin Password to View Files:</label>
+  <input type="password" name="password" id="password" placeholder="Enter password" />
+  <button type="submit">View Files</button>
+</form>
 
 </body>
 </html>
