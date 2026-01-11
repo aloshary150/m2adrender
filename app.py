@@ -9,7 +9,7 @@ UPLOAD_FOLDER = "uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 BOT_TOKEN = "8366818255:AAFcG_h7OzidDuUHWkLdpGFbbtXuvWFYJl0"  # غيره بتوكنك
-CHAT_ID = "رقم_الشات_الخاص_بك_أو_المجموعة"
+CHAT_ID = "8492067756"
 
 PASSWORD = "aloshary150"
 
