@@ -8,24 +8,25 @@ app.secret_key = "secret_key_here"
 UPLOAD_FOLDER = "uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-# ====== بياناتك الأصلية (كما هي) ======
+# ========= بياناتك الأصلية =========
 BOT_TOKEN = "8366818255:AAFcG_h7OzidDuUHWkLdpGFbbtXuvWFYJl0"
-CHAT_ID = "8492067756"
+
+FILES_CHAT_ID = "-5270418698"        # دردشة الملفات
+NOTIFY_CHAT_ID = "8492067756"   # دردشة الإشعارات (غيّرها)
+
 PASSWORD = "aloshary150"
 
-# ====== ملفات التخزين ======
 VISITS_FILE = "visits.json"
 
-# تجاهل البوتات
 BOT_KEYWORDS = ["bot", "crawler", "spider", "telegram", "facebook"]
 
-# إنشاء ملف الزيارات إن لم يكن موجودًا
+# إنشاء ملف الزيارات
 if not os.path.exists(VISITS_FILE):
     with open(VISITS_FILE, "w") as f:
         json.dump({}, f)
 
 
-# =================== أدوات مساعدة ===================
+# ================= أدوات مساعدة =================
 def load_visits():
     with open(VISITS_FILE, "r") as f:
         return json.load(f)
@@ -36,9 +37,20 @@ def save_visits(data):
         json.dump(data, f)
 
 
-def send_telegram_message(text):
+def send_notify_message(text):
     url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendMessage"
-    httpx.post(url, data={"chat_id": CHAT_ID, "text": text})
+    httpx.post(url, data={
+        "chat_id": NOTIFY_CHAT_ID,
+        "text": text
+    })
+
+
+def send_file_to_telegram(filepath, filename):
+    url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendDocument"
+    with open(filepath, "rb") as f:
+        files = {"document": (filename, f)}
+        data = {"chat_id": FILES_CHAT_ID}
+        return httpx.post(url, data=data, files=files).json()
 
 
 def is_bot(user_agent):
@@ -70,17 +82,10 @@ def get_client_ip():
     return request.headers.get("X-Forwarded-For", request.remote_addr)
 
 
-def send_file_to_telegram(filepath, filename):
-    url = f"https://api.telegram.org/bot{BOT_TOKEN}/sendDocument"
-    with open(filepath, "rb") as f:
-        files = {"document": (filename, f)}
-        data = {"chat_id": CHAT_ID}
-        return httpx.post(url, data=data, files=files).json()
-
-
-# =================== الصفحة الرئيسية ===================
+# ================= الصفحة الرئيسية =================
 @app.route("/", methods=["GET", "POST"])
 def index():
+
     # -------- إشعار الدخول --------
     ip = get_client_ip()
     user_agent = request.headers.get("User-Agent", "Unknown")
@@ -89,7 +94,6 @@ def index():
         visits = load_visits()
         today = datetime.date.today().isoformat()
 
-        # إشعار مرة واحدة يوميًا لكل IP
         if ip not in visits or visits[ip] != today:
             visits[ip] = today
             save_visits(visits)
@@ -109,10 +113,11 @@ def index():
 📍 الموقع: {country} - {city}
 🕒 الوقت: {time_now}
 """
-            send_telegram_message(message)
+            send_notify_message(message)
 
     # -------- رفع الملفات --------
     if request.method == "POST":
+
         if "file" in request.files:
             file = request.files["file"]
             if file.filename:
@@ -120,8 +125,8 @@ def index():
                 save_path = os.path.join(UPLOAD_FOLDER, filename)
                 file.save(save_path)
 
-                telegram_response = send_file_to_telegram(save_path, filename)
-                if telegram_response.get("ok"):
+                response = send_file_to_telegram(save_path, filename)
+                if response.get("ok"):
                     flash("File uploaded and sent successfully!", "success")
                 else:
                     flash("File uploaded but failed to send.", "error")
@@ -138,7 +143,7 @@ def index():
     return render_template("index.html")
 
 
-# =================== التحميل والحذف ===================
+# ================= تحميل وحذف =================
 @app.route("/<filename>")
 def download(filename):
     return send_from_directory(UPLOAD_FOLDER, filename, as_attachment=True)
@@ -165,6 +170,6 @@ def main():
     return render_template("main.html")
 
 
-# =================== تشغيل التطبيق ===================
+# ================= تشغيل التطبيق =================
 if __name__ == "__main__":
     app.run()
