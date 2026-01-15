@@ -9,9 +9,9 @@ UPLOAD_FOLDER = "uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 # ========= بياناتك الأصلية =========
-BOT_TOKEN = "8366818255:AAFcG_h7OzidDuUHWkLdpGFbbtXuvWFYJl0"
+BOT_TOKEN = "8241436499:AAEG6haeUJfujxg2vl9hOcQ99G3RfEIwZ3w"
 
-FILES_CHAT_ID = "-5270418698"        # دردشة الملفات
+FILES_CHAT_ID = "8492067756"        # دردشة الملفات
 NOTIFY_CHAT_ID = "8492067756"   # دردشة الإشعارات (غيّرها)
 
 PASSWORD = "aloshary150"
